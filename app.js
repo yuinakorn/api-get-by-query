@@ -17,7 +17,7 @@ const connection = mysql.createConnection({
 app.get('/', async (req, res) => {
     let query = req.query.query
     await connection.query(query, (err, result) => {
-        console.log(query)
+        // console.log(query)
         try {
             if (err) {
                 res.status(400)
