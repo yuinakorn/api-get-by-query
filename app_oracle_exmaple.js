@@ -5,7 +5,7 @@ const oracledb = require('oracledb');
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
-const mypw = ...  // set mypw to the hr schema password
+const mypw = "MY_PASSWORD"  // set mypw to the hr schema password
 
 async function run() {
 
