@@ -11,11 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.16",
     "oracledb": "^5.4.0"
-////    "oracledb": "https://github.com/oracle/node-oracledb/releases/download/v4.2.0/oracledb-src-4.2.0.tgz"
   }
 }
