@@ -2,7 +2,7 @@ require('dotenv').config()
 const mysql = require('mysql')
 const express = require('express')
 const app = express()
-const port = 80
+const port = process.env.APP_PORT || 8080
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded
@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
     password: process.env.HIS_PASSWORD,
     database: process.env.HIS_DATABASE,
     port: process.env.HIS_PORT,
-    charset: process.env.CHARSET
+    charset: process.env.HIS_CHARSET
 })
 
 // optional
@@ -26,9 +26,11 @@ connection.connect(function (err) {
     }
 });
 
+
 app.get('/', (req, res) => {
     res.send({"message": "OK"})
 })
+
 
 app.post('/', async (req, res) => {
     let query = req.body.script
@@ -41,7 +43,6 @@ app.post('/', async (req, res) => {
                     "error": err
                 })
             } else {
-
                 // res.charset = 'tis620'
                 res.status(200)
                 res.send(result)
@@ -50,11 +51,10 @@ app.post('/', async (req, res) => {
             res.send({"message": err})
             throw err
         }
-
     })
 })
+
 
 app.listen(port, () => {
     console.log(`Application listening on port ${port}`)
 })
-
