@@ -48,7 +48,7 @@ connection.connect()
 
 
 app.get('/', (req, res) => {
-    res.send({"message": "OK"})
+    res.send({"message": "It works"})
 })
 
 
