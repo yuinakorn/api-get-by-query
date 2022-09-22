@@ -86,4 +86,6 @@ app_mysql.post('/', async (req, res) => {
 
 app_mysql.listen(port, () => {
     console.log(`Application listening on port ${port}`);
-})
+});
+
+
