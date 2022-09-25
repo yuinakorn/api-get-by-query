@@ -19,14 +19,8 @@ function get_connection() {
             database: process.env.HIS_DATABASE,
             port: process.env.HIS_PORT,
             charset: process.env.HIS_CHARSET
-        })
-        connection.connect(function (err) {
-            if (!err) {
-                console.log('connected as id ' + connection.threadId);
-            } else {
-                console.error('error connecting: ' + err.stack);
-            }
         });
+
         connection.on('error', function (err) {
             console.log('db error', err);
             if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
