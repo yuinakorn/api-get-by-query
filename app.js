@@ -1,4 +1,4 @@
-// api version 2.0
+const api_version = "2.0" // 2022-09-25
 require('dotenv').config()
 const mysql = require('mysql')
 const {Client} = require("pg")
@@ -66,7 +66,8 @@ app.get('/', (req, res) => {
                 if (process.env.HIS_DB_TYPE === 'mysql') {
                     res.status(200).send([{
                         "message": "Connection look OK! This is now() from Database",
-                        "result": result[0]['now()']
+                        "result": result[0]['now()'],
+                        "version": api_version
                     }]);
                 } else if (process.env.HIS_DB_TYPE === 'pg') {
                     res.status(200).send([{
