@@ -64,19 +64,31 @@ app.get('/', (req, res) => {
                 connection.end();
             } else {
                 if (process.env.HIS_DB_TYPE === 'mysql') {
-                    res.status(200).send([{
+                    res.status(200).send({
                         "message": "Connection look OK! This is now() from Database",
                         "result": result[0]['now()'],
                         "auth": "Chiang mai Public Health Office",
-                        "project": "CMHIS",
-                        "subject": "HIS API",
-                        "version": api_version
-                    }]);
+                        "detail": [
+                            {
+                                "project": "CMHIS",
+                                "api_name": "HIS API",
+                                "version": api_version
+                            }
+                        ],
+                    });
                 } else if (process.env.HIS_DB_TYPE === 'pg') {
-                    res.status(200).send([{
-                        "message": "OK! This now from Database",
-                        "result": result.rows[0].now
-                    }]);
+                    res.status(200).send({
+                        "message": "Connection look OK! This is now() from Database",
+                        "result": result.rows[0].now,
+                        "auth": "Chiang mai Public Health Office",
+                        "detail": [
+                            {
+                                "project": "CMHIS",
+                                "api_name": "HIS API",
+                                "version": api_version
+                            }
+                        ]
+                    });
                 } else {
                     res.status(400).send([{"message": "HIS_DB_TYPE not found"}]);
                 }
