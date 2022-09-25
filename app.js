@@ -68,6 +68,8 @@ app.get('/', (req, res) => {
                         "message": "Connection look OK! This is now() from Database",
                         "result": result[0]['now()'],
                         "auth": "Chiang mai Public Health Office",
+                        "project": "CMHIS",
+                        "subject": "HIS API",
                         "version": api_version
                     }]);
                 } else if (process.env.HIS_DB_TYPE === 'pg') {
