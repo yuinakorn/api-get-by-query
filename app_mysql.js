@@ -63,25 +63,26 @@ app_mysql.get('/', (req, res) => {
 app_mysql.post('/', async (req, res) => {
     let query = req.body.script;
     const connection = handleDisconnect();
-    connection.query("SET NAMES UTF8");
-    await connection.query(query, (err, result) => {
-        try {
+    try {
+        connection.query("SET NAMES UTF8");
+        await connection.query(query, (err, result) => {
             if (err) {
-                res.status(400);
-                res.send({
+                connection.end();
+                res.status(400).send({
                     "message": "error",
                     "error": err
                 });
             } else {
+                // reset connection
+                connection.end();
                 // res.charset = 'tis620'
-                res.status(200);
-                res.send(result);
+                res.status(200).send(result);
             }
-        } catch (err) {
-            res.send({"message": err});
-            throw err;
-        }
-    })
+        })
+    } catch (err) {
+        res.status(500).send({"message": err});
+        throw err;
+    }
 })
 
 
