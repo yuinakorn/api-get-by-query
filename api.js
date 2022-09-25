@@ -3,11 +3,11 @@ require('dotenv').config()
 const mysql = require('mysql')
 const {Client} = require("pg")
 const express = require('express')
-const app = express()
+const api = express()
 const port = process.env.APP_PORT || 8081
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded
+api.use(express.json()) // for parsing application/json
+api.use(express.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded
 
 function get_connection() {
     let connection = null;
@@ -54,7 +54,7 @@ function call_error(err, code, res) {
 }
 
 
-app.get('/', (req, res) => {
+api.get('/', (req, res) => {
     let connection = get_connection();
     if (process.env.HIS_DB_TYPE === 'mysql') connection.query("SET NAMES UTF8") // for HOSxP
     try {
@@ -102,7 +102,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', async (req, res) => {
+api.post('/', async (req, res) => {
     let query = req.body.script
     const connection = get_connection()
     if (process.env.HIS_DB_TYPE === 'mysql') connection.query("SET NAMES UTF8") // for HOSxP
@@ -131,6 +131,6 @@ app.post('/', async (req, res) => {
 })
 
 
-app.listen(port, () => {
+api.listen(port, () => {
     console.log(`Application listening on port ${port}`)
 })
