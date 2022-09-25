@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
             } else {
                 if (process.env.HIS_DB_TYPE === 'mysql') {
                     res.status(200).send([{
-                        "message": "OK! This now from Database",
+                        "message": "Connection look OK! This is now() from Database",
                         "result": result[0]['now()']
                     }]);
                 } else if (process.env.HIS_DB_TYPE === 'pg') {
