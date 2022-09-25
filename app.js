@@ -67,6 +67,7 @@ app.get('/', (req, res) => {
                     res.status(200).send([{
                         "message": "Connection look OK! This is now() from Database",
                         "result": result[0]['now()'],
+                        "auth": "Chiang mai Public Health Office",
                         "version": api_version
                     }]);
                 } else if (process.env.HIS_DB_TYPE === 'pg') {
