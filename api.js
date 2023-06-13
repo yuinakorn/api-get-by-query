@@ -9,16 +9,19 @@ const port = process.env.APP_PORT || 8081
 api.use(express.json()) // for parsing application/json
 api.use(express.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded
 
+const encodedPassword = encodeURIComponent(process.env.HIS_PASSWORD);
+
 function get_connection() {
     let connection = null;
     if (process.env.HIS_DB_TYPE === 'mysql') {
         connection = mysql.createConnection({
             host: process.env.HIS_HOST,
             user: process.env.HIS_USER,
-            password: process.env.HIS_PASSWORD,
+            password: encodedPassword,
             database: process.env.HIS_DATABASE,
             port: process.env.HIS_PORT,
-            charset: process.env.HIS_CHARSET
+            charset: process.env.HIS_CHARSET,
+            timezone: 'Asia/Bangkok',
         });
 
         connection.on('error', function (err) {
@@ -35,7 +38,7 @@ function get_connection() {
             user: process.env.HIS_USER,
             host: process.env.HIS_HOST,
             database: process.env.HIS_DATABASE,
-            password: process.env.HIS_PASSWORD,
+            password: encodedPassword,
             port: process.env.HIS_PORT,
             charset: process.env.HIS_CHARSET
         })
