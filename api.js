@@ -1,11 +1,9 @@
 // 2023-06-13 - set timezone to Asia/Bangkok
-// 2023-08-05 - add mssql connection
 
 const api_version = "2.1";
 require("dotenv").config();
 const mysql = require("mysql");
 const { Client } = require("pg");
-const sql = require("mssql");
 const express = require("express");
 const api = express();
 const port = process.env.APP_PORT || 8081;
@@ -50,37 +48,7 @@ function get_connection() {
     });
     connection.query;
     connection.connect();
-  } else if (process.env.HIS_DB_TYPE === "mssql") {
-    const config = {
-      user: "your_username",
-      password: "your_password",
-      server: "your_server",
-      database: "your_database_name",
-      options: {
-        // encrypt: true, // Use this option for Azure MSSQL databases
-      },
-    };
-
-    async function connectToDatabase() {
-      try {
-        await sql.connect(config);
-        console.log("Connected to MSSQL database.");
-      } catch (err) {
-        console.error("Error connecting to MSSQL database:", err);
-      }
-    }
-
-    app.use(async (req, res, next) => {
-      try {
-        await connectToDatabase();
-        next();
-      } catch (err) {
-        res.status(500).send("Error connecting to the database.");
-      }
-    });
-
-
-  }
+  } 
   return connection;
 }
 
@@ -169,17 +137,6 @@ api.post("/", async (req, res) => {
   }
 });
 
-
-// Middleware to close the database connection after handling routes
-app.use(async (req, res, next) => {
-    try {
-      await closeConnection();
-      next();
-    } catch (err) {
-      res.status(500).send('Error closing the database connection.');
-    }
-  });
-  
 
 api.listen(port, () => {
   console.log(`Application listening on port ${port}`);
